@@ -1,20 +1,23 @@
 using System;
 using UnityEngine;
 
-[RequireComponent(typeof(PlayerMover), typeof(PlayerCollisionHandler), typeof(ScoreCounter))]
+[RequireComponent(typeof(PlayerMover), typeof(PlayerCollisionHandler), typeof(Score))]
+[RequireComponent(typeof(Rigidbody2D))]
 public class Player : MonoBehaviour
 {
     private PlayerMover _mover;
-    private ScoreCounter _scoreCounter;
+    private Score _score;
     private PlayerCollisionHandler _handler;
+    private Rigidbody2D _rigidbody;
 
     public event Action GameOver;
 
     private void Awake()
     {
         _mover = GetComponent<PlayerMover>();
-        _scoreCounter = GetComponent<ScoreCounter>();
+        _score = GetComponent<Score>();
         _handler = GetComponent<PlayerCollisionHandler>();
+        _rigidbody = GetComponent<Rigidbody2D>();
     }
 
     private void OnEnable()
@@ -30,11 +33,17 @@ public class Player : MonoBehaviour
     public void ProcessCollision()
     {
         GameOver?.Invoke();
+        gameObject.SetActive(false);
+    }
+
+    public void AddScore()
+    {
+        _score.Add();
     }
 
     public void Reset()
     {
         _mover.Reset();
-        //_scoreCounter.Reset();
+        _score.Reset();
     }
 }

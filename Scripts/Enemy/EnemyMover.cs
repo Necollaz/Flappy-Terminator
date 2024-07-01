@@ -6,7 +6,6 @@ public class EnemyMover : MonoBehaviour
     [SerializeField] private float _speed;
 
     private Coroutine _coroutine;
-    private Transform _transform;
 
     private void OnEnable()
     {
@@ -18,11 +17,6 @@ public class EnemyMover : MonoBehaviour
         StopCoroutine(_coroutine);
     }
 
-    private void Start()
-    {
-        _transform = transform;
-    }
-
     private IEnumerator Move()
     {
         while (enabled)
@@ -32,5 +26,4 @@ public class EnemyMover : MonoBehaviour
             yield return null;
         }
     }
-
 }

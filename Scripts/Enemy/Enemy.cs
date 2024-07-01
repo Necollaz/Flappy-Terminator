@@ -1,25 +1,24 @@
+using System;
 using UnityEngine;
 
-[RequireComponent(typeof(EnemyAttack))]
+[RequireComponent(typeof(Rigidbody2D))]
 public class Enemy : MonoBehaviour
 {
-    private EnemyAttack _attack;
+    private Rigidbody2D _rigidbody;
+
+    public event Action Dead;
 
     private void Awake()
     {
-        _attack = GetComponent<EnemyAttack>();
-    }
-
-    public void Restart()
-    {
-        _attack.Restart();
+        _rigidbody = GetComponent<Rigidbody2D>();
+        _rigidbody.isKinematic = true;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.TryGetComponent(out PlayerBullet _) || collision.TryGetComponent(out Player _))
+        if(collision.TryGetComponent(out PlayerBullet _))
         {
-            Restart();
+            Dead?.Invoke();
             gameObject.SetActive(false);
         }
     }

@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 4373207258720664944}
   - component: {fileID: 765032341234655319}
   - component: {fileID: 8148659268058391683}
+  - component: {fileID: -2358570355288854002}
   - component: {fileID: 3250643931689670489}
-  - component: {fileID: 4052438573532641361}
   m_Layer: 6
   m_Name: PlayerBullet 1
   m_TagString: Untagged
@@ -30,7 +30,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.97, y: 0.02, z: 0}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -132,6 +132,33 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.41616678, y: 0.19233406}
   m_EdgeRadius: 0
+--- !u!50 &-2358570355288854002
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1088916569624772760}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!114 &3250643931689670489
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -142,18 +169,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2d06e036c78ac43a8a9d317dba3f51a2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &4052438573532641361
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1088916569624772760}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5da018777db00424a9bae7ab8600ad27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 5

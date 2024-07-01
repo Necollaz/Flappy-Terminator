@@ -4,33 +4,34 @@ using UnityEngine;
 public class EnemyAttack : ObjectPool<EnemyBullet>
 {
     [SerializeField] private float _delay;
-    [SerializeField] private EnemyBullet _prefab;
 
     private Coroutine _coroutine;
 
-    private void OnEnable()
+    private void Start()
     {
         _coroutine = StartCoroutine(Shoot());
     }
 
     private void OnDisable()
     {
-        StopCoroutine(_coroutine);
+        if (_coroutine != null)
+        {
+            StopCoroutine(_coroutine);
+            _coroutine = null;
+        }
     }
 
     private IEnumerator Shoot()
     {
-        var wait = new WaitForSeconds(_delay);
-
         while (enabled)
         {
-            var bullet = GetObject(_prefab);
+            var bullet = GetObject();
 
             bullet.gameObject.SetActive(true);
-            bullet.transform.position = transform.position;
             bullet.Direction = Vector2.left;
+            bullet.transform.position = transform.position;
 
-            yield return wait;
+            yield return new WaitForSeconds(_delay);
         }
     }
 }

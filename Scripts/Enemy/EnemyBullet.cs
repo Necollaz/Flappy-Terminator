@@ -1,24 +1,13 @@
 using UnityEngine;
 
-public class EnemyBullet : MonoBehaviour
+public class EnemyBullet : Bullet
 {
-    [SerializeField] private float _speed;
-
-    public Vector2 Direction { get; set; }
-
-    private void Update()
+    protected override void HandleSpecificCollision(Collider2D collision)
     {
-        transform.Translate(Direction * _speed * Time.deltaTime);
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if(collision.TryGetComponent(out Player player))
+        if (collision.TryGetComponent(out Player player))
         {
             player.ProcessCollision();
-            player.gameObject.SetActive(false);
+            gameObject.SetActive(false);
         }
-
-        gameObject.SetActive(false);
     }
 }

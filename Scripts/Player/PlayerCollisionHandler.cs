@@ -13,9 +13,12 @@ public class PlayerCollisionHandler : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.TryGetComponent(out PlayerBullet bullet) == false)
+        if (!collision.TryGetComponent(out PlayerBullet bullet))
         {
-            CollisionDetected?.Invoke();
+            if (collision.TryGetComponent(out Enemy enemy) || collision.TryGetComponent(out Ground ground))
+            {
+                CollisionDetected?.Invoke();
+            }
         }
     }
 }

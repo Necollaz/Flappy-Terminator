@@ -1,10 +1,9 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemySpawner : ObjectPool<Enemy>
+public class EnemySpawner : MonoBehaviour
 {
-    [SerializeField] private List<Enemy> _prefab;
+    [SerializeField] private ObjectPool<Enemy> _enemyPool;
     [SerializeField] private float _delay;
     [SerializeField] private float _lowerBound;
     [SerializeField] private float _upperBound;
@@ -13,17 +12,19 @@ public class EnemySpawner : ObjectPool<Enemy>
 
     private void OnEnable()
     {
-        _coroutine = StartCoroutine(GenerateEnemies());
+        StartSpawning();
     }
 
     private void OnDisable()
     {
-        StopCoroutine(_coroutine);
+        StopSpawning();
     }
 
-    public override void Restart()
+    public void Reset()
     {
-        base.Restart();
+        StopSpawning();
+        ClearEnemies();
+        StartSpawning();
     }
 
     private IEnumerator GenerateEnemies()
@@ -41,9 +42,30 @@ public class EnemySpawner : ObjectPool<Enemy>
     {
         float spawnPositionY = Random.Range(_upperBound, _lowerBound);
         Vector3 spawnPoint = new Vector3(transform.position.x, spawnPositionY, transform.position.z);
-
-        Enemy enemy = GetObject(_prefab);
-        enemy.gameObject.SetActive(true);
+        Enemy enemy = _enemyPool.GetObject();
         enemy.transform.position = spawnPoint;
+        enemy.gameObject.SetActive(true);
+    }
+
+    private void StopSpawning()
+    {
+        if (_coroutine != null)
+        {
+            StopCoroutine(_coroutine);
+            _coroutine = null;
+        }
+    }
+
+    private void StartSpawning()
+    {
+        _coroutine = StartCoroutine(GenerateEnemies());
+    }
+
+    private void ClearEnemies()
+    {
+        foreach (var enemy in _enemyPool.PoolObjects)
+        {
+            enemy.gameObject.SetActive(false);
+        }
     }
 }

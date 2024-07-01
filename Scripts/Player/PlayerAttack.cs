@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class PlayerAttack : ObjectPool<PlayerBullet>
 {
-    [SerializeField] private PlayerBullet _prefab;
     [SerializeField] private float _reload;
 
     private float _nextFireTime;
@@ -19,9 +18,9 @@ public class PlayerAttack : ObjectPool<PlayerBullet>
         }
     }
 
-    public override void Restart()
+    public void Restart()
     {
-        foreach(var item in Pool)
+        foreach(var item in PoolObjects)
         {
             item.Restart();
             item.gameObject.SetActive(false);
@@ -30,15 +29,12 @@ public class PlayerAttack : ObjectPool<PlayerBullet>
 
     private void Shoot()
     {
-        var bullet = GetObject(_prefab);
+        var bullet = GetObject();
 
         bullet.gameObject.SetActive(true);
         bullet.EnemyHit += EnemyHit;
-        bullet.transform.position = transform.position;
-        Vector2 bulletDirection = transform.right;
-        bullet.Direction = bulletDirection;
-        bullet.transform.SetParent(Container, false);
-        bullet.transform.rotation = Quaternion.identity;
+        bullet.transform.position = transform.position + (Vector3)transform.right;
+        bullet.Direction = transform.right;
     }
 
     private void EnemyHit()
