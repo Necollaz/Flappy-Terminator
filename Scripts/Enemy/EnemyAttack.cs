@@ -12,6 +12,11 @@ public class EnemyAttack : ObjectPool<EnemyBullet>
         _coroutine = StartCoroutine(Shoot());
     }
 
+    private void OnEnable()
+    {
+        _coroutine = StartCoroutine(Shoot());
+    }
+
     private void OnDisable()
     {
         if (_coroutine != null)
@@ -19,6 +24,12 @@ public class EnemyAttack : ObjectPool<EnemyBullet>
             StopCoroutine(_coroutine);
             _coroutine = null;
         }
+    }
+
+    public override void Reset()
+    {
+        StopAllCoroutines();
+        base.Reset();
     }
 
     private IEnumerator Shoot()

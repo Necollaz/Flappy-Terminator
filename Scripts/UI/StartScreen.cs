@@ -4,6 +4,11 @@ public class StartScreen : Window
 {
     public event Action PlayButtonClicked;
 
+    public void OnPlayButtonClicked()
+    {
+        OnButtonClick();
+    }
+
     public override void Open()
     {
         WindowGroup.alpha = 1f;

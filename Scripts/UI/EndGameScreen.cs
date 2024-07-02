@@ -4,6 +4,11 @@ public class EndGameScreen : Window
 {
     public event Action RestartButtonClicked;
 
+    public void OnRestartButtonClicked()
+    {
+        OnButtonClick();
+    }
+
     public override void Open()
     {
         WindowGroup.alpha = 1f;

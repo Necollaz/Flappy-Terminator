@@ -5,6 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class Player : MonoBehaviour
 {
+    [SerializeField] private ScoreView _scoreView;
     private PlayerMover _mover;
     private Score _score;
     private PlayerCollisionHandler _handler;
@@ -36,14 +37,10 @@ public class Player : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    public void AddScore()
-    {
-        _score.Add();
-    }
-
     public void Reset()
     {
         _mover.Reset();
         _score.Reset();
+        gameObject.SetActive(true);
     }
 }

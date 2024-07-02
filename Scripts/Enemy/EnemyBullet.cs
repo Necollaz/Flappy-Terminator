@@ -7,7 +7,6 @@ public class EnemyBullet : Bullet
         if (collision.TryGetComponent(out Player player))
         {
             player.ProcessCollision();
-            gameObject.SetActive(false);
         }
     }
 }

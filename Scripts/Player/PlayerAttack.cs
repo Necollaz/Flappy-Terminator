@@ -11,30 +11,31 @@ public class PlayerAttack : ObjectPool<PlayerBullet>
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E) && Time.time >= _nextFireTime)
-        {
-            Shoot();
-            _nextFireTime = Time.time + _reload;
-        }
+        Shoot();
     }
 
-    public void Restart()
+    public override void Reset()
     {
-        foreach(var item in PoolObjects)
+        foreach (var item in PoolObjects)
         {
-            item.Restart();
+            item.Reset();
             item.gameObject.SetActive(false);
         }
     }
 
     private void Shoot()
     {
-        var bullet = GetObject();
+        if(Input.GetKeyDown(KeyCode.E) && Time.time >= _nextFireTime)
+        {
+            var bullet = GetObject();
 
-        bullet.gameObject.SetActive(true);
-        bullet.EnemyHit += EnemyHit;
-        bullet.transform.position = transform.position + (Vector3)transform.right;
-        bullet.Direction = transform.right;
+            bullet.gameObject.SetActive(true);
+            bullet.EnemyHit += EnemyHit;
+            bullet.transform.position = transform.position + (Vector3)transform.right;
+            bullet.Direction = transform.right;
+
+            _nextFireTime = Time.time + _reload;
+        }
     }
 
     private void EnemyHit()
