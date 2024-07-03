@@ -3,18 +3,16 @@ using UnityEngine;
 
 public class EnemyAttack : ObjectPool<EnemyBullet>
 {
-    [SerializeField] private float _delay;
+    [SerializeField] private float _reload;
 
     private Coroutine _coroutine;
 
-    private void Start()
-    {
-        _coroutine = StartCoroutine(Shoot());
-    }
-
     private void OnEnable()
     {
-        _coroutine = StartCoroutine(Shoot());
+        if (_coroutine == null)
+        {
+            _coroutine = StartCoroutine(Shoot());
+        }
     }
 
     private void OnDisable()
@@ -26,23 +24,26 @@ public class EnemyAttack : ObjectPool<EnemyBullet>
         }
     }
 
-    public override void Reset()
+    public override void Restart()
     {
         StopAllCoroutines();
-        base.Reset();
+        base.Restart();
+        _coroutine = StartCoroutine(Shoot());
     }
 
     private IEnumerator Shoot()
     {
+        var wait = new WaitForSeconds(_reload);
+
         while (enabled)
-        {
+        {   
             var bullet = GetObject();
 
             bullet.gameObject.SetActive(true);
-            bullet.Direction = Vector2.left;
             bullet.transform.position = transform.position;
+            bullet.Direction = Vector2.left;
 
-            yield return new WaitForSeconds(_delay);
+            yield return wait;
         }
     }
 }

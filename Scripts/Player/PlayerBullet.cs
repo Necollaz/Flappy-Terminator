@@ -5,9 +5,10 @@ public class PlayerBullet : Bullet
 {
     public event Action EnemyHit;
 
-    public void Reset()
+    public void Restart()
     {
         EnemyHit = null;
+        gameObject.SetActive(false);
     }
 
     protected override void HandleSpecificCollision(Collider2D collision)
@@ -15,7 +16,7 @@ public class PlayerBullet : Bullet
         if (collision.TryGetComponent(out Enemy enemy))
         {
             EnemyHit?.Invoke();
-            Reset();
+            Restart();
         }
     }
 }

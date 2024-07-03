@@ -37,10 +37,10 @@ public class Player : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    public void Reset()
+    public void Restart()
     {
-        _mover.Reset();
-        _score.Reset();
+        _mover.Restart();
+        _score.Restart();
         gameObject.SetActive(true);
     }
 }

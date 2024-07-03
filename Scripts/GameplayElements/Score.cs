@@ -25,7 +25,7 @@ public class Score : MonoBehaviour
         Changed?.Invoke(_score);
     }
 
-    public void Reset()
+    public void Restart()
     {
         _score = 0;
         Changed?.Invoke(_score);

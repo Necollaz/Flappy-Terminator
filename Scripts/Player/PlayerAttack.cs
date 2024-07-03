@@ -14,13 +14,9 @@ public class PlayerAttack : ObjectPool<PlayerBullet>
         Shoot();
     }
 
-    public override void Reset()
+    public override void Restart()
     {
-        foreach (var item in PoolObjects)
-        {
-            item.Reset();
-            item.gameObject.SetActive(false);
-        }
+        base.Restart();
     }
 
     private void Shoot()

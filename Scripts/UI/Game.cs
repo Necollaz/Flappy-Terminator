@@ -7,6 +7,8 @@ public class Game : MonoBehaviour
     [SerializeField] private Player _player;
     [SerializeField] private EnemySpawner _enemySpawner;
     [SerializeField] private PlayerAttack _playerAttack;
+    [SerializeField] private ObjectPoolBullet _bulletPool;
+    [SerializeField] private ObjectPoolEnemy _enemyPool;
 
     private void OnEnable()
     {
@@ -40,19 +42,21 @@ public class Game : MonoBehaviour
         _endGameScreen.Close();
         StartGame();
     }
+
     private void OnPlayButtonClick()
     {
         _startGameScreen.Close();
+        _endGameScreen.Close();
         StartGame();
     }
 
     private void StartGame()
     {
         Time.timeScale = 1;
-        _player.Reset();
-        _enemySpawner.Reset();
-        _playerAttack.Reset();
+        _player.Restart();
+        _enemySpawner.Restart();
+        _playerAttack.Restart();
+        _bulletPool.Restart();
+        _enemyPool.Restart();
     }
 }
-
-

@@ -14,13 +14,6 @@ public class PlayerMover : MonoBehaviour
     private Quaternion _maxRotation;
     private Quaternion _minRotation;
 
-    public void Reset()
-    {
-        transform.position = _startPosition;
-        transform.rotation = Quaternion.identity;
-        _rigidbody.velocity = Vector2.zero;
-    }
-
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
@@ -29,13 +22,20 @@ public class PlayerMover : MonoBehaviour
     private void Start()
     {
         Initialize();
-        Reset();
+        Restart();
     }
 
     private void Update()
     {
         HandleInput();
         Rotate();
+    }
+
+    public void Restart()
+    {
+        transform.position = _startPosition;
+        transform.rotation = Quaternion.identity;
+        _rigidbody.velocity = Vector2.zero;
     }
 
     private void Initialize()

@@ -16,9 +16,9 @@ public class Enemy : MonoBehaviour
         _rigidbody.isKinematic = true;
     }
 
-    public void Reset()
+    public void Restart()
     {
-        _enemyAttack.Reset();
+        _enemyAttack.Restart();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

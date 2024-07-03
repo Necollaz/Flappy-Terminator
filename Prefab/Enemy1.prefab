@@ -198,7 +198,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _prefab: {fileID: -4439584240227205882, guid: a25ca63348ba24996be833dac82f34fc, type: 3}
-  _delay: 2
+  _reload: 1.5
 --- !u!114 &-1989992868394261888
 MonoBehaviour:
   m_ObjectHideFlags: 0

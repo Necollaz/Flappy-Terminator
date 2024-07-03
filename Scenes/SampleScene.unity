@@ -1207,6 +1207,8 @@ MonoBehaviour:
   _player: {fileID: 401360391}
   _enemySpawner: {fileID: 648850812}
   _playerAttack: {fileID: 401360390}
+  _bulletPool: {fileID: 1941993037}
+  _enemyPool: {fileID: 1378578184}
 --- !u!4 &1050830843
 Transform:
   m_ObjectHideFlags: 0
@@ -2380,8 +2382,8 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 541744681}
-  - {fileID: 695465325}
   - {fileID: 1918259181}
+  - {fileID: 695465325}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -2482,7 +2484,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1918259181
 RectTransform:
   m_ObjectHideFlags: 0

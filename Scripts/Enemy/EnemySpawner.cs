@@ -15,11 +15,15 @@ public class EnemySpawner : MonoBehaviour
         StartSpawning();
     }
 
-    public void Reset()
+    public void Restart()
     {
-        StopSpawning();
-        ClearEnemies();
-        _enemyPool.Reset();
+        StopCoroutine(_coroutine);
+
+        foreach (var enemy in _enemyPool.ActiveObjects)
+        {
+            enemy.gameObject.SetActive(false);
+        }
+
         StartSpawning();
     }
 
@@ -33,36 +37,20 @@ public class EnemySpawner : MonoBehaviour
             yield return wait;
         }
     }
-
+        
     private void Spawn()
     {
         float spawnPositionY = Random.Range(_upperBound, _lowerBound);
         Vector3 spawnPoint = new Vector3(transform.position.x, spawnPositionY, transform.position.z);
+
         Enemy enemy = _enemyPool.GetObject();
         enemy.gameObject.SetActive(true);
         enemy.transform.position = spawnPoint;
-    }
-
-    private void StopSpawning()
-    {
-        if (_coroutine != null)
-        {
-            StopCoroutine(_coroutine);
-            _coroutine = null;
-        }
+        enemy.Restart();
     }
 
     private void StartSpawning()
     {
-        StartCoroutine(GenerateEnemies());
-    }
-
-    private void ClearEnemies()
-    {
-        foreach (var enemy in _enemyPool.PoolObjects)
-        {
-            enemy.Reset();
-            enemy.gameObject.SetActive(false);
-        }
+        _coroutine = StartCoroutine(GenerateEnemies());
     }
 }
